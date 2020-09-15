@@ -17,7 +17,10 @@ public class Solution0_10 {
 //        System.out.println(myAtoiPlus("-2147483649"));
 
         //第9题
-        System.out.println(isPalindrome(10));
+//        System.out.println(isPalindrome(10));
+
+        //第10题
+        System.out.println(isMatch("aab","c*a*b"));
     }
 
 
@@ -113,5 +116,26 @@ public class Solution0_10 {
             x/=10;
         }
         return t1 == x || t1/10 == x;
+    }
+
+    public static boolean isMatch(String s, String p) {
+        if(p.equals(""))return true;
+        if(s.equals(""))return false;
+        int index=0;
+        for(int i=0;i<p.length();i++){
+            char c = p.charAt(i);
+            if(c=='.' && i+1<p.length() && p.charAt(i+1)=='*'){
+                return true;
+            }else if(c=='.'){
+                if(index++==s.length())return false;
+            }else if (c=='*'){
+                char c1 = s.charAt(index);
+                while (index<s.length() && c1==s.charAt(index++));
+            }else {
+                if(s.charAt(index)!=c)return false;
+                index++;
+            }
+        }
+        return index==s.length();
     }
 }
