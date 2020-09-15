@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ac0a8d2e-0da5-4359-b836-bdf2853a0dec" name="Default Changelist" comment="" />
+    <list default="true" id="ac0a8d2e-0da5-4359-b836-bdf2853a0dec" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/out/production/LeetCode/problemsWarehouse/Solution0_10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LeetCode/problemsWarehouse/Solution0_10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/problemsWarehouse/Solution0_10.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/problemsWarehouse/Solution0_10.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +29,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -69,7 +73,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1600071710444</updated>
-      <workItem from="1600071713051" duration="826000" />
+      <workItem from="1600071713051" duration="5532000" />
     </task>
     <servers />
   </component>
