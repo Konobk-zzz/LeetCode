@@ -22,7 +22,10 @@ public class Solution11_20 {
 //        System.out.println(longestCommonPrefix(new String[]{"","a"}));
 
         //第15题
-        System.out.println(threeSum1(new int[]{-1, 0, 1, 2, -1, -4}));
+//        System.out.println(threeSum1(new int[]{-1, 0, 1, 2, -1, -4}));
+
+        //第16题
+        System.out.println(threeSumClosest(new int[]{-1,2,1,-4},1));
     }
 
     public static int maxArea(int[] height){
@@ -215,6 +218,37 @@ public class Solution11_20 {
         }else{
             return true;
         }
+    }
+
+    public static int threeSumClosest(int[] nums, int target1) {
+        if(nums==null || nums.length<3)return 0;
+        Arrays.sort(nums);
+
+        int ans=0;
+        int min=Integer.MAX_VALUE;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]>0)break;
+            if(i>0 && nums[i]==nums[i-1])continue;
+
+            int c=nums.length-1;
+            int target=target1-nums[i];
+
+            int t=Math.abs(target-(nums[i+1]+nums[c]));
+
+            for(int j=i+1;j<nums.length;j++){
+                if(j>i+1 && nums[j]==nums[j-1])continue;
+                while(j<c && Math.abs(target-(nums[i+1]+nums[c]))>=t){
+                    t=Math.abs(target-(nums[i+1]+nums[c]));
+                    c--;
+                }
+                if (j==c)break;
+                if(t<min){
+                    min=t;
+                    ans=Math.abs(target-(nums[i+1]+nums[c]));
+                }
+            }
+        }
+        return ans;
     }
 
     public static String test(int num) {
