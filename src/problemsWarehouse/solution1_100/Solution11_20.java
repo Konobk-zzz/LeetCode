@@ -9,6 +9,8 @@ import java.util.*;
  */
 public class Solution11_20 {
     public static void main(String[] args) {
+        Long start=System.currentTimeMillis();
+
         //第11题
 //        System.out.println(maxArea(new int[]{1,8,6,2,5,4,8,3,7}));
 
@@ -25,7 +27,22 @@ public class Solution11_20 {
 //        System.out.println(threeSum1(new int[]{-1, 0, 1, 2, -1, -4}));
 
         //第16题
-        System.out.println(threeSumClosest(new int[]{-1,2,1,-4},1));
+//        System.out.println(threeSumClosest1(new int[]{1,1,1,1},0));
+
+        //第17题
+//        System.out.println(letterCombinations("23"));
+
+//        test2<Integer> testTtest2 = new test2<Integer>();
+//        System.out.println(fourSum(new int[]{-1,0,-5,-2,-2,-4,0,1,-2},-9));
+
+        aClass aClass = new aClass();
+        System.out.println(Integer.MAX_VALUE);
+        System.out.println(aClass.str.hashCode());
+        System.out.println(aClass.a.hashCode());
+
+        testMove();
+        Long end=System.currentTimeMillis();
+        System.out.println("耗时："+(end-start));
     }
 
     public static int maxArea(int[] height){
@@ -220,35 +237,82 @@ public class Solution11_20 {
         }
     }
 
-    public static int threeSumClosest(int[] nums, int target1) {
+    public static int threeSumClosest(int[] nums, int target) {
         if(nums==null || nums.length<3)return 0;
         Arrays.sort(nums);
 
-        int ans=0;
         int min=Integer.MAX_VALUE;
+        int ans=0;
         for(int i=0;i<nums.length;i++){
-            if(nums[i]>0)break;
-            if(i>0 && nums[i]==nums[i-1])continue;
-
-            int c=nums.length-1;
-            int target=target1-nums[i];
-
-            int t=Math.abs(target-(nums[i+1]+nums[c]));
-
-            for(int j=i+1;j<nums.length;j++){
-                if(j>i+1 && nums[j]==nums[j-1])continue;
-                while(j<c && Math.abs(target-(nums[i+1]+nums[c]))>=t){
-                    t=Math.abs(target-(nums[i+1]+nums[c]));
-                    c--;
-                }
-                if (j==c)break;
-                if(t<min){
-                    min=t;
-                    ans=Math.abs(target-(nums[i+1]+nums[c]));
+            for(int j=i;j<nums.length;j++){
+                for(int k=j;k<nums.length;k++){
+                    int t=Math.abs(target-(nums[i]+nums[j]+nums[k]));
+                    if(t<min){
+                        min=t;
+                        ans=nums[i]+nums[j]+nums[k];
+                    }
                 }
             }
         }
         return ans;
+    }
+
+    //不重复解
+    public static int threeSumClosest1(int[] nums, int target) {
+        if(nums==null || nums.length<3)return 0;
+        Arrays.sort(nums);
+
+        int ans=nums[0] + nums[1] + nums[2];
+        for(int i=0;i<nums.length-2;i++){
+
+            int l=i+1;
+            int r=nums.length-1;
+            while(l<r){
+                int sum = nums[i] + nums[l] + nums[r];
+                if(sum>target){
+                    r--;
+                }else if(sum<target){
+                    l++;
+                }else {
+                    return sum;
+                }
+                if(Math.abs(target-sum)<Math.abs(target-ans))ans=sum;
+            }
+        }
+        return ans;
+    }
+
+    public static List<String> letterCombinations(String digits) {
+        List<String> list=new ArrayList<>();
+        if(digits==null || digits.equals(""))return list;
+
+        HashMap<Character, String> map = new HashMap<Character, String>(){{
+            put('2', "abc");
+            put('3', "def");
+            put('4', "ghi");
+            put('5', "jkl");
+            put('6', "mno");
+            put('7', "pqrs");
+            put('8', "tuv");
+            put('9', "wxyz");
+        }};
+
+        backtrack(list,map,digits,0,new StringBuffer());
+
+        return list;
+    }
+
+    public static void backtrack(List<String> list,Map<Character,String> map,String digits,int index,StringBuffer buffer){
+        if(index==digits.length()){
+            list.add(buffer.toString());
+        }else {
+            String s = map.get(digits.charAt(index));
+            for(int i=0;i<s.length();i++){
+                buffer.append(s.charAt(i));
+                backtrack(list,map,digits,index+1,buffer);
+                buffer.deleteCharAt(index);
+            }
+        }
     }
 
     public static String test(int num) {
@@ -312,5 +376,69 @@ public class Solution11_20 {
             return "I";
         else
             return "";
+    }
+
+
+    public static List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> result=new ArrayList<>();
+        if(nums==null || nums.length<4)return result;
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length-3;i++){
+            if(nums[i]+nums[i+1]+nums[i+2]+nums[i+3]>target)break;
+            if(i>0 && nums[i]==nums[i-1])continue;
+            for(int j=i+1;j<nums.length-2;j++){
+                if(j>i+1 && nums[j]==nums[j-1])continue;
+                int p=j+1;
+                int q=nums.length-1;
+                while(p<q){
+                    if(p>j+1 && nums[p]==nums[p-1]){
+                        p++;
+                        continue;
+                    }
+                    if(q<nums.length-1 && nums[q]==nums[q+1]){
+                        q--;
+                        continue;
+                    }
+                    int sum=nums[i]+nums[j]+nums[p]+nums[q];
+                    if(target==sum){
+                        List<Integer> list=new ArrayList<>();
+                        list.add(nums[i]);
+                        list.add(nums[j]);
+                        list.add(nums[p]);
+                        list.add(nums[q]);
+                        result.add(list);
+                        p++;
+                        q--;
+                    }else if(sum<target){
+                        p++;
+                    }else{
+                        q--;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+
+    public static void testHash(){
+
+    }
+
+    private static class aClass{
+
+        String str;
+
+        Integer a;
+
+        public aClass(){
+            this.str="testtaadsaa";
+            this.a=4646;
+        }
+    }
+
+    private static void testMove(){
+        System.out.println(2<<3);
+        System.out.println(2>>3);
     }
 }
